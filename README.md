@@ -62,6 +62,13 @@ In addition to this, v4.2.1 does not include variant calls for chrX, but v3.3.2 
 
 ## Workflow
 
+Outputs:
+
+1. results/benchmark_autosome_v4.2.1_chrx_v3.3.2.vcf.gz
+2. results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz
+
+Commands:
+
     mkdir -p data
     cd data
 
@@ -101,5 +108,3 @@ In addition to this, v4.2.1 does not include variant calls for chrX, but v3.3.2 
         | bgzip -c > results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz
     tabix -p bed results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz
 
-
-The `results/benchmark_autosome_v4.2.1_chrx_v3.3.2.vcf.gz` and `results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz` are the final files.
