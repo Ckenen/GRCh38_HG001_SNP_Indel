@@ -8,7 +8,7 @@ The Genome in a Bottle (GIAB) hosted by NIST is dedicated to the authoritative c
 
 ![Schema](images/igv_error_info.png)
 
-In addition to this, v4.2.1 does not include variant calls for chrX, but v3.3.2 includes (see below), v4.2.1 contains more variant calls in autosome than v3.3.2 (see `jupyter.ipynb`). Therefore, we merged the autosome variant calls from v4.2.1 and the chrX variant calls from v3.3.2 together to generate a more comprehensive variant calls for HG001.
+In addition to this, v4.2.1 does not include variant calls for chrX, but v3.3.2 includes (see below), v4.2.1 contains more variant calls in autosomal chromosomes than v3.3.2 (see `jupyter.ipynb`). Therefore, we merged the autosomal variant calls from v4.2.1 and the chrX variant calls from v3.3.2 together to generate a more comprehensive variant calls for HG001.
 
     $ zcat data/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz | grep -v '#' | awk '{print $1}' | sort | uniq -c 
     307854 chr1
@@ -64,8 +64,8 @@ In addition to this, v4.2.1 does not include variant calls for chrX, but v3.3.2 
 
 Outputs:
 
-1. results/benchmark_autosome_v4.2.1_chrx_v3.3.2.vcf.gz
-2. results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz
+1. results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.vcf.gz
+2. results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.bed.gz
 
 Commands:
 
@@ -99,12 +99,12 @@ Commands:
         zcat data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer.vcf.gz \
         | awk '$1=="chrX"' \
         | awk -v OFS='\t' '{print $1,$2,$3,$4,$5,$6,$7,".",$9,$10}' ) \
-        | bgzip -c > results/benchmark_autosome_v4.2.1_chrx_v3.3.2.vcf.gz
-    tabix -p vcf results/benchmark_autosome_v4.2.1_chrx_v3.3.2.vcf.gz
+        | bgzip -c > results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.vcf.gz
+    tabix -p vcf results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.vcf.gz
 
     ( cat data/HG001_GRCh38_1_22_v4.2.1_benchmark.bed; \
         awk '$1=="chrX"' data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7.bed ) \
         | sort -k1,1 -k2,2n \
-        | bgzip -c > results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz
-    tabix -p bed results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz
+        | bgzip -c > results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.bed.gz
+    tabix -p bed results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.bed.gz
 
