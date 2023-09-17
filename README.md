@@ -4,7 +4,9 @@ Generate available variant calls for HG001 (GRCh38) from GIAB variant calls.
 
 ## Objective
 
-The Genome in a Bottle (GIAB) hosted by NIST is dedicated to the authoritative characterization of benchmark human genomes. However, the latest version (v4.2.1) variant calls (VCF) for HG001 (GRCh38) have improperly formatted records in the MHC region, which will cause a critical error in IGV visualization and Pysam (see `jupyter.ipynb`).
+The Genome in a Bottle (GIAB) hosted by NIST is dedicated to the authoritative characterization of benchmark human genomes. However, the latest version (v4.2.1) variant calls (VCF) for HG001 (GRCh38) have improperly formatted records in the MHC region, which will cause a critical error in IGV visualization (see below) and Pysam (see `jupyter.ipynb`).
+
+![Schema](images/igv_error_info.png)
 
 In addition to this, v4.2.1 does not include variant calls for chrX, but v3.3.2 includes (see below), v4.2.1 contains more variant calls in autosome than v3.3.2 (see `jupyter.ipynb`). Therefore, we merged the autosome variant calls from v4.2.1 and the chrX variant calls from v3.3.2 together to generate a more comprehensive variant calls for HG001.
 
