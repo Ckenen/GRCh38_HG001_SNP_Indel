@@ -79,14 +79,23 @@ In addition to this, v4.2.1 does not include variant calls for chrX, but v3.3.2 
 
     # revise v4.2.1 variant calls (VCF)
 
-    zcat data/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz | ./revise_vcf.py | bgzip -c > results/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.revised_mhc.vcf.gz
+    zcat data/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz \
+        | ./revise_vcf.py \
+        | bgzip -c > results/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.revised_mhc.vcf.gz
     tabix -p vcf results/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.revised_mhc.vcf.gz
 
     # merge v4.2.1 and v3.3.2
     
-    ( zcat results/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.revised_mhc.vcf.gz; zcat data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer.vcf.gz | awk '$1=="chrX"' | awk -v OFS='\t' '{print $1,$2,$3,$4,$5,$6,$7,".",$9,$10}' ) | bgzip -c > results/benchmark_autosome_v4.2.1_chrx_v3.3.2.vcf.gz
+    ( zcat results/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.revised_mhc.vcf.gz; \
+        zcat data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer.vcf.gz \
+        | awk '$1=="chrX"' \
+        | awk -v OFS='\t' '{print $1,$2,$3,$4,$5,$6,$7,".",$9,$10}' ) \
+        | bgzip -c > results/benchmark_autosome_v4.2.1_chrx_v3.3.2.vcf.gz
     tabix -p vcf results/benchmark_autosome_v4.2.1_chrx_v3.3.2.vcf.gz
 
-    ( cat data/HG001_GRCh38_1_22_v4.2.1_benchmark.bed; awk '$1=="chrX"' data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7.bed ) | sort -k1,1 -k2,2n | bgzip -c > results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz
+    ( cat data/HG001_GRCh38_1_22_v4.2.1_benchmark.bed; \
+        awk '$1=="chrX"' data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7.bed ) \
+        | sort -k1,1 -k2,2n \
+        | bgzip -c > results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz
     tabix -p bed results/benchmark_autosome_v4.2.1_chrx_v3.3.2.bed.gz
 
