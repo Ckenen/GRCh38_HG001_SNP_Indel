@@ -2,8 +2,10 @@
 import sys
 
 for line in sys.stdin:
-    if line.startswith("#"):
+    if line.startswith("##"):
         sys.stdout.write(line)
+    elif line.startswith("#"):
+        sys.stdout.write("#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tHG001\n")
     else:
         row = line.strip("\n").split("\t")
         s1 = row[8]
