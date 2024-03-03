@@ -1,0 +1,12 @@
+e1ea90c830f981d29a46043eb618e7bf  data/HG001_GRCh38_1_22_v4.2.1_benchmark.bed
+d9a6805d4b67730571a7deffba9185d5  data/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz
+123a62694687fe1a4f9d6be84d581d46  data/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz.tbi
+f17011674693b7fe1a0d072dfa2cac09  data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer.vcf.gz
+1fdfcc03986675ddaf713b75c841cab7  data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer.vcf.gz.tbi
+a085f0be5ef4c41389d15f943107000a  data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7.bed
+743017192c20d5dde7d2375eaf2399c0  GRCh38_HG001_SNP_Indel.GIAB_v4.2.1_and_v3.3.2.bed.gz
+6f9939dc0d5824c856ee1b331b78e17c  GRCh38_HG001_SNP_Indel.GIAB_v4.2.1_and_v3.3.2.bed.gz.tbi
+bb68c22550f6cc700ca6613276b81557  GRCh38_HG001_SNP_Indel.GIAB_v4.2.1_and_v3.3.2.vcf.gz
+af6d198fe94575e00eb9bd8e4940fbfc  GRCh38_HG001_SNP_Indel.GIAB_v4.2.1_and_v3.3.2.vcf.gz.tbi
+0dec78543b930c4bcb334fdd5e75eb47  GRCh38_HG001_SNP_Indel.GIAB_v4.2.1_and_v3.3.2_full.vcf.gz
+cb087ec232433eea911a7bf12d1a8f85  GRCh38_HG001_SNP_Indel.GIAB_v4.2.1_and_v3.3.2_full.vcf.gz.tbi

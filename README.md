@@ -1,10 +1,10 @@
-# GRCh38-HG001-Variant-Calls
+# GRCh38_HG001_SNP_Indel
 
-Generate available variant calls for HG001 (GRCh38) from GIAB variant calls.
+Generate available small variant calls for HG001 (GRCh38) from GIAB.
 
 ## Objective
 
-The Genome in a Bottle (GIAB) hosted by NIST is dedicated to the authoritative characterization of benchmark human genomes. However, the latest version (v4.2.1) variant calls (VCF) for HG001 (GRCh38) have improperly formatted records in the MHC region, which will cause a critical error in IGV visualization (see below) and Pysam (see `jupyter.ipynb`).
+The Genome in a Bottle (GIAB) hosted by NIST is dedicated to the authoritative characterization of benchmark human genomes. However, the latest version (v4.2.1) variant calls (VCF) for HG001 (GRCh38) have improperly formatted records in the MHC region, which will cause a critical error in IGV visualization (see below) and pysam (see `jupyter.ipynb`).
 
 ![Schema](images/igv_error_info.png)
 
@@ -62,49 +62,16 @@ In addition to this, v4.2.1 does not include variant calls for chrX, but v3.3.2 
 
 ## Workflow
 
+Firstly, we downloaded the v3.3.2 and v4.2.1 small variant files (VCF format) from GIAB (see `data/00_download.sh`).
+
+Then, we merged small varants in `jupyter.ipynb`.
+
+Please note that the value of PS was set to 0 if the original value is PATMAT, otherwise a digital value (compatible with `whatshap`). 
+
 Outputs:
 
-1. results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.vcf.gz
-2. results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.bed.gz
-
-Commands:
-
-    mkdir -p data
-    cd data
-
-    # download v4.2.1 variant calls
-
-    wget https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/NA12878_HG001/NISTv4.2.1/GRCh38/HG001_GRCh38_1_22_v4.2.1_benchmark.bed
-    wget https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/NA12878_HG001/NISTv4.2.1/GRCh38/SupplementaryFiles/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz
-    wget https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/release/NA12878_HG001/NISTv4.2.1/GRCh38/SupplementaryFiles/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz.tbi
-
-    # download v3.3.2 variant calls
-
-    wget https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/NA12878_HG001/NISTv3.3.2/GRCh38/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer.vcf.gz
-    wget https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/NA12878_HG001/NISTv3.3.2/GRCh38/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer.vcf.gz.tbi
-    wget https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/NA12878_HG001/NISTv3.3.2/GRCh38/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7.bed
-
-    cd ..
-
-    # revise v4.2.1 variant calls (VCF)
-
-    zcat data/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz \
-        | ./revise_vcf.py \
-        | bgzip -c > results/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.revised_mhc.vcf.gz
-    tabix -p vcf results/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.revised_mhc.vcf.gz
-
-    # merge v4.2.1 and v3.3.2
-    
-    ( zcat results/HG001_GRCh38_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.revised_mhc.vcf.gz; \
-        zcat data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_PGandRTGphasetransfer.vcf.gz \
-        | awk '$1=="chrX"' \
-        | awk -v OFS='\t' '{print $1,$2,$3,$4,$5,$6,$7,".",$9,$10}' ) \
-        | bgzip -c > results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.vcf.gz
-    tabix -p vcf results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.vcf.gz
-
-    ( cat data/HG001_GRCh38_1_22_v4.2.1_benchmark.bed; \
-        awk '$1=="chrX"' data/HG001_GRCh38_GIAB_highconf_CG-IllFB-IllGATKHC-Ion-10X-SOLID_CHROM1-X_v.3.3.2_highconf_nosomaticdel_noCENorHET7.bed ) \
-        | sort -k1,1 -k2,2n \
-        | bgzip -c > results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.bed.gz
-    tabix -p bed results/benchmark_autosomal_v4.2.1_chrx_v3.3.2.bed.gz
-
+| File | Description |
+| :-- | :-- |
+| GRCh38_HG001_SNP_Indel.GIAB_v4.2.1_and_v3.3.2.bed.gz | Benchmark regions |
+| GRCh38_HG001_SNP_Indel.GIAB_v4.2.1_and_v3.3.2.vcf.gz | Merged small variants without redundant information. FORMAT field only contain 'GT:IGT:IPS:PS' |
+| GRCh38_HG001_SNP_Indel.GIAB_v4.2.1_and_v3.3.2_full.vcf.gz | Merged small variants with full information from GIAB VCF. |
